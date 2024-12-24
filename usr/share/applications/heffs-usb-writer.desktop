@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=Heff's USB Writer
+GenericName=Heff's USB Writer
+X-GNOME-FullName=Heff's USB Writer
+Comment=Create bootable USB for Linux Distributions
+Exec=heffs-usb-writer
+Icon=/usr/share/pixmaps/heffna.png
+Terminal=false
+Type=Application
+Keywords=image;heffna;heff;USB;tool;writing;hefftor;
+StartupNotify=true
+Categories=GTK;;Security;X-GNOME-Settings-Panel;X-GNOME-SystemSettings;X-Unity-Settings-Panel;X-XFCE-SettingsDialog;X-XFCE-SystemSettings;Utility;Networking;
+X-Developer=Brad Heffernan

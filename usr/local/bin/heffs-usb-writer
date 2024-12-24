@@ -1,0 +1,37 @@
+#!/bin/bash
+DEBUG=false  # Change this value to toggle debug mode
+
+OS=""
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    OS=$ID
+fi
+
+echo "Detected OS: $OS"
+
+# Function to run the Python script with root privileges
+run_with_root() {
+    if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] && command -v kdesu >/dev/null 2>&1; then
+        kdesu "$@"
+    elif command -v pkexec >/dev/null 2>&1; then
+        pkexec "$@"
+    elif command -v gksudo >/dev/null 2>&1; then
+        gksudo "$@"
+    else
+        echo "Error: No suitable method found to run with root privileges. Please install PolicyKit, kdesu, gksudo, or sudo."
+        exit 1
+    fi
+}
+
+if [[ "$DEBUG" == "true" ]]; then
+    if [[ "$OS" == "ubuntu" ]]; then
+        echo "Running in debug mode..."
+        run_with_root ~/.venv/bin/python3 ../../lib/Heffs_USB_Writer/USBWriter.py
+    else
+        echo "Running in debug mode..."
+        run_with_root python3 ../../lib/Heffs_USB_Writer/USBWriter.py
+    fi
+else
+    echo "Running in production mode..."
+    run_with_root python3 /usr/lib/Heffs_USB_Writer/USBWriter.py
+fi
